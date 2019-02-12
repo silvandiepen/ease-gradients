@@ -4,28 +4,6 @@
 @import 'checks';
 
 
-
-@function bezier($ease, $i) {
-	$time: 0;
-	$i-1: (1 - $i);
-
-	//	P = (1−t)3P1 + 3(1−t)2tP2 +3(1−t)t2P3 + t3P4
-
-	$p1: ($i-1 * $i-1 * $i-1 * nth($ease, 1));
-	$p2: (3 * $i-1 * $i-1 * $i * nth($ease, 2));
-	$p3: (3 * $i-1 * $i * $i * nth($ease, 3));
-	$p4: ($i * $i * $i * nth($ease, 4));
-	$time: $p1 + $p2 + $p3 + $p4;
-
-	@return $time;
-}
-
-
-// @for $i from 0 through 10{
-// 	$ease: 0 0 1 1;
-// 	@debug bezier(0 0 1 1, $i);
-// }
-
 // Ease
 //
 //
@@ -36,14 +14,13 @@
 		$stop: ();
 		$mix-percentage: 0;
 		@if type-of($ease) == 'list' AND length($ease) == 4 {
-			@debug bezier($ease, $i);
-			$mix-percentage: percentage($i/10);
+			$mix-percentage: bezier($i, $ease, 10);
 		} @else {
 			$mix-percentage: percentage(decimal-round(ease($ease, $i)) / 10);
 		}
 		$percentage: percentage($i/10);
-		$color: mix(nth($colors, 1), nth($colors, 2), $mix-percentage);
-		$stops: append($stops, ($color, $percentage));
+		$color: mix(nth($colors, 1), nth($colors, 2), $percentage);
+		$stops: append($stops, ($color, $mix-percentage));
 	}
 	@return $stops;
 }

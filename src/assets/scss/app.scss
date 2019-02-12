@@ -1,0 +1,26 @@
+// Basics
+@import 'tools/pre';
+@import 'typography/embed';
+
+// Define output settings for project
+$output: set-output(css, true);
+
+// Output the whole framework
+@import '~henris';
+@import 'tools/post';
+// Theme
+@import 'typography/index';
+@import 'components/index';
+
+section{
+	&.container{
+		padding: grid(1);
+		@media #{$small-only}{
+			padding: 2rem;
+		}
+		>.row{
+			max-width: 960px;
+		}	
+	}
+	
+}

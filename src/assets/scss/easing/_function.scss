@@ -69,7 +69,7 @@
 	} @else if $ease == 'easeInExpo' OR $ease == 'easeInExpo' {
 		@return $c * pow(2, 10 * ($t/$d - 1)) + $b;
 	} @else if $ease == 'easeOutExpo' OR $ease == 'easeOutExpo' {
-		@return $c * (-#{pow(2, -10 * $t/$d)} + 1) + $b;
+		@return $c * (-#{pow(2, -10 * $t / $d)} + 1) + $b;
 	} @else if $ease == 'ease-in-out-expo' OR $ease == 'easeInOutExpo' {
 		$t: $t / $d/2;
 		@if $t < 1 {
@@ -80,7 +80,8 @@
 		}
 	} @else if $ease == 'ease-in-circ' OR $ease == 'easeInCirc' {
 		$t: $t / $d;
-		@return -$c * (#{sqrt(1 - $t * $t)} - 1) + $b;
+		$v: -$c * (sqrt(1 - $t * $t) - 1) + $b;
+		@return $v;
 	} @else if $ease == 'ease-out-circ' OR $ease == 'easeOutCirc' {
 		$t: $t / $d;
 		$t: $t - 1;
@@ -95,10 +96,39 @@
 			@return $c/2 * (sqrt(1 - $t * $t) + 1) + $b;
 		}
 	}
+	@else if $ease == 'easeInSin' {
+    @return 1 + sin(pi() / 2 * $t - pi() / 2);
+  }
+	@else if $ease == 'easeOutSin'{
+    @return sin(pi() / 2 * $t);
+  }
+	@else if $ease == 'easeInOutSin' {
+    @return (1 + sin(pi() * $t - pi() / 2)) / 2;
+  }
+	
+	
+	
 
 	// Linear
 
 	@else {
 		@return $c * $t / $d + $b;
 	}
+}
+
+
+
+
+@function calc-bezier($i, $ease) {
+	$m1: 1 - $i;
+  $p1: $m1 * $m1 * $m1 * nth($ease, 1);
+  $p2: 3 * $m1 * $m1 * $i * nth($ease, 2);
+  $p3: 3 * $m1 * $i * $i * nth($ease, 3);
+  $p4: $i * $i * $i * nth($ease, 4);
+  $val: $p1 + $p2 + $p3 + $p4;      
+  @return $val;
+}
+
+@function bezier($i, $ease, $steps){
+  @return percentage(round(calc-bezier($i, $ease) / calc-bezier($steps, $ease) * 100)/100);  
 }
