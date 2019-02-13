@@ -171,7 +171,7 @@ export default {
 
 <style lang="scss">
 @import "assets/scss/app.scss";
-@import "assets/scss/easing/ease";
+// @import "assets/scss/easing/ease";
 html,
 body {
   margin: 0;
