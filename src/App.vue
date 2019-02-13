@@ -28,7 +28,7 @@
     <section class="background--white gradients">
       <div class="row blocks">
         <div
-          class="column small-half medium-quarter block"
+          class="column small-10 medium-quarter block"
           :class="ease"
           v-for="(ease, index) in easings"
           :key="index"
@@ -37,19 +37,19 @@
           <h5>{{ ease }}</h5>
         </div>
 
-        <div class="column small-half medium-quarter block bezier1">
+        <div class="column small-10 medium-quarter block bezier1">
           <div class="block__example"></div>
           <h5>Bezier Curve &mdash; 0 0 1 1</h5>
         </div>
-        <div class="column small-half medium-quarter block bezier2">
+        <div class="column small-10 medium-quarter block bezier2">
           <div class="block__example"></div>
           <h5>Bezier Curve &mdash; 0 1 1 0</h5>
         </div>
-        <div class="column small-half medium-quarter block bezier3">
+        <div class="column small-10 medium-quarter block bezier3">
           <div class="block__example"></div>
           <h5>Bezier Curve &mdash; 0.75 0 0.25 1</h5>
         </div>
-        <div class="column small-half medium-quarter block bezier4">
+        <div class="column small-10 medium-quarter block bezier4">
           <div class="block__example"></div>
           <h5>Bezier Curve &mdash; 0 0.75 0.25 1</h5>
         </div>
@@ -202,6 +202,7 @@ $easings: (
 .columns {
   .column {
     padding: grid(1);
+    @include min-("padding", 1, 32);
     &:nth-child(1) {
       background-color: color(Black, 0.25);
     }
