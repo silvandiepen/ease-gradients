@@ -217,6 +217,7 @@ $easings: (
 .gradients {
   overflow: scroll;
   padding: grid(1);
+  -webkit-overflow-scrolling: touch;
   .block {
     @each $ease in $easings {
       &.#{$ease} {
